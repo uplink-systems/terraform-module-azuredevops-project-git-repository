@@ -8,6 +8,14 @@ module "repository_minimum-conf-repo" {
     name                        = "minimum-conf-repo"
     project_id                  = azuredevops_project.example.project_id
   }
+  repository_policy             = {
+    file_path_pattern               = {
+      file_path_patterns                = [ "*.cmd","block.me" ]
+    }
+    max_file_size                   = {
+      max_file_size                     = 20
+    }
+  }
 }
 
 module "repository_import-repo" {
