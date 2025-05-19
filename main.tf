@@ -37,6 +37,14 @@ resource "azuredevops_repository_policy_case_enforcement" "case_enforcement" {
   depends_on              = [ azuredevops_git_repository.git_repository ]
 }
 
+resource "azuredevops_repository_policy_check_credentials" "check_credentials" {
+  project_id              = var.git_repository.project_id
+  repository_ids          = [ azuredevops_git_repository.git_repository.id ]
+  enabled                 = var.repository_policy.check_credentials.enabled
+  blocking                = var.repository_policy.check_credentials.blocking
+  depends_on              = [ azuredevops_git_repository.git_repository ]
+}
+
 resource "azuredevops_repository_policy_file_path_pattern" "file_path_pattern" {
   project_id              = var.git_repository.project_id
   repository_ids          = [ azuredevops_git_repository.git_repository.id ]
