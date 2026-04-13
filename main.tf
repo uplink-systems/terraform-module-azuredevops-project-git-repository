@@ -18,3 +18,64 @@ resource "azuredevops_git_repository" "git_repository" {
     ignore_changes = [ initialization ]
   }
 }
+
+resource "azuredevops_repository_policy_author_email_pattern" "author_email_pattern" {
+  project_id              = var.git_repository.project_id
+  repository_ids          = [ azuredevops_git_repository.git_repository.id ]
+  enabled                 = var.repository_policy.author_email_pattern.enabled
+  blocking                = var.repository_policy.author_email_pattern.blocking
+  author_email_patterns   = var.repository_policy.author_email_pattern.author_email_patterns
+  depends_on              = [ azuredevops_git_repository.git_repository ]
+}
+
+resource "azuredevops_repository_policy_case_enforcement" "case_enforcement" {
+  project_id              = var.git_repository.project_id
+  repository_ids          = [ azuredevops_git_repository.git_repository.id ]
+  enabled                 = var.repository_policy.case_enforcment.enabled
+  blocking                = var.repository_policy.case_enforcment.blocking
+  enforce_consistent_case = var.repository_policy.case_enforcment.enforce_consistent_case
+  depends_on              = [ azuredevops_git_repository.git_repository ]
+}
+
+resource "azuredevops_repository_policy_check_credentials" "check_credentials" {
+  project_id              = var.git_repository.project_id
+  repository_ids          = [ azuredevops_git_repository.git_repository.id ]
+  enabled                 = var.repository_policy.check_credentials.enabled
+  blocking                = var.repository_policy.check_credentials.blocking
+  depends_on              = [ azuredevops_git_repository.git_repository ]
+}
+
+resource "azuredevops_repository_policy_file_path_pattern" "file_path_pattern" {
+  project_id              = var.git_repository.project_id
+  repository_ids          = [ azuredevops_git_repository.git_repository.id ]
+  enabled                 = var.repository_policy.file_path_pattern.enabled
+  blocking                = var.repository_policy.file_path_pattern.blocking
+  filepath_patterns       = var.repository_policy.file_path_pattern.file_path_patterns
+  depends_on              = [ azuredevops_git_repository.git_repository ]
+}
+
+resource "azuredevops_repository_policy_max_file_size" "max_file_size" {
+  project_id              = var.git_repository.project_id
+  repository_ids          = [ azuredevops_git_repository.git_repository.id ]
+  enabled                 = var.repository_policy.max_file_size.enabled
+  blocking                = var.repository_policy.max_file_size.blocking
+  max_file_size           = var.repository_policy.max_file_size.max_file_size
+  depends_on              = [ azuredevops_git_repository.git_repository ]
+}
+
+resource "azuredevops_repository_policy_max_path_length" "max_path_length" {
+  project_id              = var.git_repository.project_id
+  repository_ids          = [ azuredevops_git_repository.git_repository.id ]
+  enabled                 = var.repository_policy.max_path_length.enabled
+  blocking                = var.repository_policy.max_path_length.blocking
+  max_path_length         = var.repository_policy.max_path_length.max_path_length
+  depends_on              = [ azuredevops_git_repository.git_repository ]
+}
+
+resource "azuredevops_repository_policy_reserved_names" "reserved_names" {
+  project_id              = var.git_repository.project_id
+  repository_ids          = [ azuredevops_git_repository.git_repository.id ]
+  enabled                 = var.repository_policy.reserved_names.enabled
+  blocking                = var.repository_policy.reserved_names.blocking
+  depends_on              = [ azuredevops_git_repository.git_repository ]
+}
